@@ -4,7 +4,7 @@ module Equestreum
     attr_reader :hash, :nonce, :time
 
     def initialize
-      @difficulty = '0000'
+      @difficulty = 4
 
       yield self if block_given?
     end

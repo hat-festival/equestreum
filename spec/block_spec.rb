@@ -5,7 +5,7 @@ module Equestreum
         block = Block.new do |b|
           b.data = 'equestreum'
           b.prev = '00005a04bcaba76ec015e6626b417b61874562c7b35dc4e982f413a0b8c47336'
-          b.difficulty = '00'
+          b.difficulty = 2
         end
 
         expect(block.data).to eq 'equestreum'
@@ -17,14 +17,14 @@ module Equestreum
           b.prev = '00005a04bcaba76ec015e6626b417b61874562c7b35dc4e982f413a0b8c47336'
         end
 
-        expect(block.difficulty).to eq '0000'
+        expect(block.difficulty).to eq 4
       end
 
       it 'mines itself' do
         block = Block.new do |b|
           b.data = 'equestreum'
           b.prev = '00005a04bcaba76ec015e6626b417b61874562c7b35dc4e982f413a0b8c47336'
-          b.difficulty = '0'
+          b.difficulty = 1
         end
 
         Timecop.freeze '1974-06-15' do

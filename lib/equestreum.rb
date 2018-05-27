@@ -8,7 +8,7 @@ module Equestreum
     string = '%s%s%s%s' % [
       nonce,
       Time.now.to_i,
-      difficulty,
+      '0' * difficulty,
       prev,
       data
     ]
@@ -17,6 +17,6 @@ module Equestreum
   end
 
   def self.difficulty_attained hash, difficulty
-    hash.start_with? difficulty
+    hash.start_with? '0' * difficulty
   end
 end
