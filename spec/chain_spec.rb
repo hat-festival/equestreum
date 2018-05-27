@@ -52,7 +52,7 @@ module Equestreum
           expect(chain.hash_ok? 2).to be true
         end
 
-        it 'verifies all its hashes' do
+        it 'verifies all of its hashes' do
           expect(chain.hashes_ok?).to be true
         end
 
@@ -70,7 +70,7 @@ module Equestreum
           expect(chain.proof_of_work_ok? 3).to be true
         end
 
-        it 'verifies all its proofs-of-work' do
+        it 'verifies all of its proofs-of-work' do
           expect(chain.proofs_of_work_ok?).to be true
         end
 
@@ -80,6 +80,20 @@ module Equestreum
             expect(ex).to be_a EquestreumException
             expect(ex.text).to eq 'Inconsistent difficulty in block at 3'
           end
+        end
+      end
+
+      context 'hashes are chained' do
+        it 'verifies the previous hash for a block' do
+          expect(chain.previous_hash_ok? 1).to be true
+        end
+
+        it 'verifies the previous hash for the genesis block' do
+          expect(chain.previous_hash_ok? 0).to be true
+        end
+
+        it 'verifies all of its previous hashes' do
+          expect(chain.previous_hashes_ok?).to be true
         end
       end
     end

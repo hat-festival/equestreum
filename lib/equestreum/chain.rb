@@ -46,5 +46,21 @@ module Equestreum
       end
       true
     end
+
+    def previous_hash_ok? index
+      block = self[index]
+      previous = self[index - 1]
+      if index > 0
+        block.prev == previous.hash
+      end
+      true
+    end
+
+    def previous_hashes_ok?
+      self.length.times do |index|
+        raise EquestreumException.new "Hash chain broken in block at #{index}" unless previous_hash_ok? index
+      end
+      true
+    end
   end
 end
