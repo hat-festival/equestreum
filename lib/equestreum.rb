@@ -20,4 +20,12 @@ module Equestreum
   def self.difficulty_attained hash, difficulty
     hash.start_with? '0' * difficulty
   end
+
+  class EquestreumException < Exception
+    attr_reader :text
+
+    def initialize text
+      @text = text
+    end
+  end
 end
