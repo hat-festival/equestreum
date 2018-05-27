@@ -1,5 +1,7 @@
 require 'bundler/setup'
 require 'timecop'
+require 'coveralls'
+Coveralls.wear!
 
 require 'equestreum'
 
