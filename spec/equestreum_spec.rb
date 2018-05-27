@@ -1,4 +1,4 @@
-RSpec.describe Equestreum do
+describe Equestreum do
   it 'generates a hash' do
     Timecop.freeze '1974-06-15' do
       nonce = 0
