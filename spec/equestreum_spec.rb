@@ -7,7 +7,7 @@ describe Equestreum do
       data = 'equestreum'
 
       expect(Equestreum.hash nonce, difficulty, prev, data).to eq (
-        'a1d05a04bcaba76ec015e6626b417b61874562c7b35dc4e982f413a0b8c47336'
+        'a19b51472e111d39e0d97848dd2d6c6ac328176ac68f0a4825a99ac455d2b552'
       )
     end
   end

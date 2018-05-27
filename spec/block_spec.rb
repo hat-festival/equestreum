@@ -31,8 +31,8 @@ module Equestreum
           block.mine
         end
 
-        expect(block.hash).to eq '03b3e7d06e697ce00a58664e5f56f527a89bbd3f877e1ebd90deb278cb7cc9d2'
-        expect(block.nonce).to eq 9
+        expect(block.hash).to eq '0cc73bbe862fbb5e46df2708070427fc33185053e558593a5e87e8526198f264'
+        expect(block.nonce).to eq 72
         expect(block.data).to eq 'equestreum'
         expect(block.time).to eq 140482800
       end

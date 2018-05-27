@@ -15,7 +15,7 @@ module Equestreum
     it 'has the genesis block' do
       expect(chain.length).to eq 1
       expect(chain.first).to eq genesis
-      expect(chain.first.hash).to eq '000f1de8fa58156748d6b36408c7024f41e02cde553f630ee603e318223a19cb'
+      expect(chain.first.hash).to eq '000bc00e91fd08af44d6f0e82c74041397e1e46c5433d733d57f0a9e6dc2e344'
     end
 
     context 'extend itself' do
@@ -24,7 +24,7 @@ module Equestreum
           chain.grow 'exodus'
         end
         expect(chain.length).to eq 2
-        expect(chain.last.hash).to eq '000249da357db436f9b0c5cdade30e41d80093ea6d0510fe7d276b8dc8024889'
+        expect(chain.last.hash).to eq '0008dea44fb4c3260a1debd555ccfe012796ef46c725a015da78d9449769fb95'
       end
 
       it 'adds several blocks' do
@@ -42,7 +42,7 @@ module Equestreum
 
         expect(chain.length).to eq 5
         expect(chain[3].data).to eq 'numbers'
-        expect(chain[3].nonce).to eq 10466
+        expect(chain[3].nonce).to eq 1175
       end
     end
 
