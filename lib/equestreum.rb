@@ -2,6 +2,7 @@ require 'digest'
 
 require 'equestreum/version'
 require 'equestreum/block'
+require 'equestreum/chain'
 
 module Equestreum
   def self.hash nonce, difficulty, prev, data
