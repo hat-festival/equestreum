@@ -47,7 +47,20 @@ module Equestreum
     end
 
     context 'verify itself' do
+      context 'hashes are kosher' do
+        it 'verifies the hash of a block' do
+          expect(chain.hash_ok? 2).to be true
+        end
 
+        it 'verifies all its hashes' do
+          expect(chain.hashes_ok?).to be true
+        end
+
+        it 'knows when a block has been tampered with' do
+          chain[1].data = 'Joshua'
+          expect(chain.hashes_ok?).to be false
+        end
+      end
     end
   end
 end
