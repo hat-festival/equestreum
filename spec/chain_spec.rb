@@ -58,7 +58,10 @@ module Equestreum
 
         it 'knows when a block has been tampered with' do
           chain[2].data = 'Joshua'
-          expect(chain.hashes_ok?).to be false
+          expect { chain.hashes_ok? }.to raise_exception do |ex|
+            expect(ex).to be_a EquestreumException
+            expect(ex.text).to eq 'Block at 2 tampered with'
+          end
         end
       end
 
@@ -73,7 +76,10 @@ module Equestreum
 
         it 'knows when a block has been tampered with' do
           chain[3].difficulty = 10
-          expect(chain.proofs_of_work_ok?).to be false
+          expect { chain.proofs_of_work_ok? }.to raise_exception do |ex|
+            expect(ex).to be_a EquestreumException
+            expect(ex.text).to eq 'Inconsistent difficulty in block at 3'
+          end
         end
       end
     end

@@ -30,7 +30,7 @@ module Equestreum
 
     def hashes_ok?
       self.length.times do |index|
-        return false unless hash_ok? index
+        raise EquestreumException.new "Block at #{index} tampered with" unless hash_ok? index
       end
       true
     end
@@ -42,7 +42,7 @@ module Equestreum
 
     def proofs_of_work_ok?
       self.length.times do |index|
-        return false unless proof_of_work_ok? index
+        raise EquestreumException.new "Inconsistent difficulty in block at #{index}" unless proof_of_work_ok? index
       end
       true
     end
