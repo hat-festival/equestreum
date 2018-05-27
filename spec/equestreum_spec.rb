@@ -11,4 +11,10 @@ RSpec.describe Equestreum do
       )
     end
   end
+
+  it 'verifies proof-of-work' do
+    hash = '00005a04bcaba76ec015e6626b417b61874562c7b35dc4e982f413a0b8c47336'
+    expect(Equestreum.difficulty_attained hash, '0000').to be true
+    expect(Equestreum.difficulty_attained hash, '000000').to be false
+  end
 end
