@@ -20,24 +20,34 @@ module Equestreum
 
     context 'extend itself' do
       it 'adds a block' do
-        Timecop.freeze '1974-06-15' do
+        Timecop.freeze '1974-06-16' do
           chain.grow 'exodus'
         end
         expect(chain.length).to eq 2
-        expect(chain.last.hash).to eq '0000913d07862643d3656a3dfa52318bbef4b1a770d0be8e01c93630ae232654'
+        expect(chain.last.hash).to eq '000249da357db436f9b0c5cdade30e41d80093ea6d0510fe7d276b8dc8024889'
       end
 
       it 'adds several blocks' do
-        Timecop.freeze '1974-06-15' do
+        Timecop.freeze '1974-06-17' do
           chain.grow 'leviticus'
+        end
+
+        Timecop.freeze '1974-06-18' do
           chain.grow 'numbers'
+        end
+
+        Timecop.freeze '1974-06-19' do
           chain.grow 'deuteronomy'
         end
 
         expect(chain.length).to eq 5
         expect(chain[3].data).to eq 'numbers'
-        expect(chain[3].nonce).to eq 906
+        expect(chain[3].nonce).to eq 10466
       end
+    end
+
+    context 'verify itself' do
+
     end
   end
 end
