@@ -1,4 +1,6 @@
 require 'bundler/setup'
+require 'timecop'
+
 require 'equestreum'
 
 RSpec.configure do |config|
