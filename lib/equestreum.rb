@@ -6,7 +6,7 @@ require 'equestreum/chain'
 
 module Equestreum
   def self.hash nonce, difficulty, prev, data
-    string = '%s%s%s%s' % [
+    string = '%s%s%s%s%s' % [
       nonce,
       Time.now.to_i,
       '0' * difficulty,
