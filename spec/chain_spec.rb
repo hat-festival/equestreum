@@ -57,8 +57,23 @@ module Equestreum
         end
 
         it 'knows when a block has been tampered with' do
-          chain[1].data = 'Joshua'
+          chain[2].data = 'Joshua'
           expect(chain.hashes_ok?).to be false
+        end
+      end
+
+      context 'proofs-of-work are kosker' do
+        it 'verifies the proof-of-work of a block' do
+          expect(chain.proof_of_work_ok? 3).to be true
+        end
+
+        it 'verifies all its proofs-of-work' do
+          expect(chain.proofs_of_work_ok?).to be true
+        end
+
+        it 'knows when a block has been tampered with' do
+          chain[3].difficulty = 10
+          expect(chain.proofs_of_work_ok?).to be false
         end
       end
     end

@@ -34,5 +34,17 @@ module Equestreum
       end
       true
     end
+
+    def proof_of_work_ok? index
+      block = self[index]
+      block.hash.start_with? '0' * block.difficulty
+    end
+
+    def proofs_of_work_ok?
+      self.length.times do |index|
+        return false unless proof_of_work_ok? index
+      end
+      true
+    end
   end
 end
