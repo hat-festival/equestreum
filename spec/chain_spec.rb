@@ -95,6 +95,24 @@ module Equestreum
         it 'verifies all of its previous hashes' do
           expect(chain.previous_hashes_ok?).to be true
         end
+
+        it 'knows when a block has been tampered with' do
+          chain[4].prev = 'fakehash'
+          expect { chain.previous_hashes_ok? }.to raise_exception do |ex|
+            expect(ex).to be_a EquestreumException
+            expect(ex.text).to eq 'Hash chain broken in block at 4'
+          end
+        end
+      end
+
+      context 'blocks are chronological' do
+        it 'verifies that a block is newer than its predecessor' do
+          expect(chain.newer_than_last? 1).to be true
+        end
+
+        it 'verifies that time marches forward' do
+          expect(chain.blocks_get_newer?).to be true
+        end
       end
     end
   end
