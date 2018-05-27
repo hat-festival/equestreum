@@ -14,4 +14,8 @@ module Equestreum
 
     Digest::SHA256.hexdigest string
   end
+
+  def self.difficulty_attained hash, difficulty
+    hash.start_with? difficulty
+  end
 end
