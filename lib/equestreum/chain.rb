@@ -76,5 +76,15 @@ module Equestreum
       end
       true
     end
+
+    def save
+      File.open Config.instance.config['chain_path'], 'w' do |f|
+        f.write Marshal.dump self
+      end
+    end
+
+    def self.revive
+      Marshal.load File.read Config.instance.config['chain_path']
+    end
   end
 end
