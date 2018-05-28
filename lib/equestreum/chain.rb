@@ -1,7 +1,9 @@
 module Equestreum
   class Chain < Array
+    private :push, :append, :<<
+
     def initialize genesis
-      self.push genesis
+      push genesis
     end
 
     def grow data
@@ -13,7 +15,7 @@ module Equestreum
 
       block.mine
 
-      self.push block
+      push block
     end
 
     def hash_ok? index

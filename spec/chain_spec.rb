@@ -44,6 +44,19 @@ module Equestreum
         expect(chain[3].data).to eq 'numbers'
         expect(chain[3].nonce).to eq 1175
       end
+
+      it 'can only grow via the `grow` method' do
+        [
+          :push,
+          :append,
+          :<<
+        ].each do |method|
+          expect { chain.public_send method }.to raise_exception do |ex|
+            expect(ex).to be_a NoMethodError
+            expect(ex.message).to match /private method/
+          end
+        end
+      end
     end
 
     context 'verify itself' do
@@ -112,6 +125,16 @@ module Equestreum
 
         it 'verifies that time marches forward' do
           expect(chain.blocks_get_newer?).to be true
+        end
+
+        it 'knows when a block has been tampered with' do
+          Timecop.freeze '1970-01-01' do
+            chain.grow 'maccabees'
+            expect { chain.blocks_get_newer? }.to raise_exception do |ex|
+              expect(ex).to be_a EquestreumException
+              expect(ex.text).to eq 'Block at 5 seems older than its predecessor'
+            end
+          end
         end
       end
     end
