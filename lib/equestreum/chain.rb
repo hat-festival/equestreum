@@ -18,6 +18,19 @@ module Equestreum
       push block
     end
 
+    def data with_genesis: false
+      data = self.map do |b|
+        {
+          datetime: Time.at(b.time).iso8601,
+          data: b.data
+        }
+      end
+
+      data.shift unless with_genesis
+
+      data
+    end
+
     def hash_ok? index
       block = self[index]
 
