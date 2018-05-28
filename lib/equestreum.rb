@@ -1,6 +1,7 @@
 require 'digest'
 
 require 'equestreum/version'
+require 'equestreum/config'
 require 'equestreum/block'
 require 'equestreum/chain'
 
