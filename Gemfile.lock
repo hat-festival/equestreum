@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    equestreum (0.1.0)
+    equestreum (0.1.1)
 
 GEM
   remote: https://rubygems.org/
