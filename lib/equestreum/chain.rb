@@ -6,16 +6,30 @@ module Equestreum
       push genesis
     end
 
-    def grow data
+    def grow data, difficulty: nil
       block = Block.new do |b|
         b.data = data
         b.prev = self.last.hash
         b.difficulty = self.last.difficulty
+        b.difficulty = difficulty if difficulty
       end
 
       block.mine
 
       push block
+    end
+
+    def data with_genesis: false
+      data = self.map do |b|
+        {
+          datetime: Time.at(b.time).iso8601,
+          data: b.data
+        }
+      end
+
+      data.shift unless with_genesis
+
+      data
     end
 
     def hash_ok? index
