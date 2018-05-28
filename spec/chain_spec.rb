@@ -44,6 +44,19 @@ module Equestreum
         expect(chain[3].data).to eq 'numbers'
         expect(chain[3].nonce).to eq 1175
       end
+
+      it 'can only grow via the `grow` method' do
+        [
+          :push,
+          :append,
+          :<<
+        ].each do |method|
+          expect { chain.public_send method }.to raise_exception do |ex|
+            expect(ex).to be_a NoMethodError
+            expect(ex.message).to match /private method/
+          end
+        end
+      end
     end
 
     context 'verify itself' do
