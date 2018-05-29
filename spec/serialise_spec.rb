@@ -13,6 +13,11 @@ module Equestreum
     chain = Chain.new genesis
 
     context 'serialisation' do
+      before :each do 
+        allow(Config.instance.config).
+          to receive(:[]).with('chain_path').and_return('tmp/equestreum.chain')
+      end
+
       it 'can serialise itself' do
         chain.save
         expect(File).to exist 'tmp/equestreum.chain'
