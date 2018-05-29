@@ -13,8 +13,6 @@ module Equestreum
 
     def fetch_yaml file
       YAML.load_file file
-    rescue Errno::ENOENT
-      {}
     end
   end
 end

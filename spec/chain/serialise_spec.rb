@@ -1,20 +1,10 @@
 module Equestreum
   describe Chain do
-    genesis = Block.new do |b|
-      b.data = 'genesis block'
-      b.prev = '0000000000000000000000000000000000000000000000000000000000000000'
-      b.difficulty = 3
-    end
-
-    Timecop.freeze '1974-06-15' do
-      genesis.mine
-    end
-
-    chain = Chain.new genesis
+    chain = Chain.new
 
     context 'serialisation' do
-      before :each do 
-        allow(Config.instance.config).
+      before :each do
+         allow(Config.instance.config).
           to receive(:[]).with('chain_path').and_return('tmp/equestreum.chain')
       end
 

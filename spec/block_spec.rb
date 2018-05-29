@@ -27,14 +27,14 @@ module Equestreum
           b.difficulty = 1
         end
 
-        Timecop.freeze '1974-06-15' do
+        Timecop.freeze EPOCH do
           block.mine
         end
 
-        expect(block.hash).to eq '0cc73bbe862fbb5e46df2708070427fc33185053e558593a5e87e8526198f264'
-        expect(block.nonce).to eq 72
+        expect(block.hash).to eq '08e89c6eb23ab500171403ea56a446d6258eede05023f91af9585f140ce63491'
+        expect(block.nonce).to eq 1
         expect(block.data).to eq 'equestreum'
-        expect(block.time).to eq 140482800
+        expect(block.time).to eq 140486400
       end
     end
   end

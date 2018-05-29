@@ -1,21 +1,41 @@
 module Equestreum
   class Chain < Array
     private :push, :append, :<<
+    attr_accessor :seed_data, :seed_difficulty
 
-    def initialize genesis
-      push genesis
+    def initialize
+      @seed_data = 'genesis block'
+      @seed_difficulty = 3
+
+      yield self if block_given?
+
+      grow @seed_data,
+           difficulty: @seed_difficulty,
+           prev: '0000000000000000000000000000000000000000000000000000000000000000'
     end
 
-    def grow data
+    def grow data, difficulty: nil, prev: nil
       block = Block.new do |b|
         b.data = data
-        b.prev = self.last.hash
-        b.difficulty = self.last.difficulty
+        b.prev = prev ? prev : self.last.hash
+        b.difficulty = difficulty ? difficulty : self.last.difficulty
       end
 
       block.mine
-
       push block
+    end
+
+    def data with_genesis: false
+      data = self.map do |b|
+        {
+          datetime: Time.at(b.time).iso8601,
+          data: b.data
+        }
+      end
+
+      data.shift unless with_genesis
+
+      data
     end
 
     def hash_ok? index
@@ -75,6 +95,10 @@ module Equestreum
         raise EquestreumException.new "Block at #{index} seems older than its predecessor" unless newer_than_last? index
       end
       true
+    end
+
+    def verified?
+      hashes_ok? && proofs_of_work_ok? && previous_hashes_ok? && blocks_get_newer?
     end
 
     def save
