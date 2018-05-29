@@ -1,4 +1,6 @@
 require 'digest'
+require 'singleton'
+require 'yaml'
 
 require 'equestreum/version'
 require 'equestreum/config'
