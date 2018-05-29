@@ -16,6 +16,7 @@ RSpec.configure do |config|
   end
 
   config.before :all do
+    FileUtils.rm_rf 'tmp/'
     FileUtils.mkdir_p 'tmp/'
   end
 

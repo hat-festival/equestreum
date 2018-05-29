@@ -25,6 +25,14 @@ module Equestreum
       push block
     end
 
+    def self.grow data, difficulty: nil
+      chain = self.revive
+      chain.grow data, difficulty: difficulty
+      chain.save
+
+      chain
+    end
+
     def data with_genesis: false
       data = self.map do |b|
         {
