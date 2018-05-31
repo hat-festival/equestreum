@@ -14,7 +14,7 @@ module Equestreum
       @nonce = 0
       loop do
         @hash = Equestreum.hash @nonce, @difficulty, @prev, @data
-        if Equestreum.difficulty_attained hash, @difficulty
+        if Equestreum.difficulty_attained hash, difficulty: @difficulty
           break
         else
           @nonce += 1
