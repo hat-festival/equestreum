@@ -41,46 +41,5 @@ describe Equestreum do
         expect(Equestreum.lead_string '1f40e', difficulty: 7).to eq '1f40e00'
       end
     end
-
-    context 'regular block' do
-      it 'verifies a regular block' do
-        hash = '000ff21d2cc674291907aed5eac7ff9195a9bad961a2e69a5ef07ce2a45274ef'
-        expect(Equestreum.difficulty_attained hash, difficulty: 3).to be true
-      end
-    end
-
-    context ':horse block' do
-      it 'verifies a :horse block' do
-        hash = '1f40ea04bcaba76ec015e6626b417b61874562c7b35dc4e982f413a0b8c47336'
-        expect(Equestreum.horse_attained hash).to be true
-      end
-
-      it 'verifies a more difficult :horse block' do
-        hash = '1f40e064bcaba76ec015e6626b417b61874562c7b35dc4e982f413a0b8c47336'
-        expect(Equestreum.horse_attained hash, difficulty: 6).to be true
-      end
-
-      it 'does not verify a :tiger block' do
-        hash = '1f405a04bcaba76ec015e6626b417b61874562c7b35dc4e982f413a0b8c47336'
-        expect(Equestreum.horse_attained hash).to be false
-      end
-    end
-
-    context ':duck block' do
-      it 'verifies a :duck block' do
-        hash = '1f986a04bcaba76ec015e6626b417b61874562c7b35dc4e982f413a0b8c47336'
-        expect(Equestreum.duck_attained hash).to be true
-      end
-
-      it 'verifies a more difficult :duck block' do
-        hash = '1f986000bcaba76ec015e6626b417b61874562c7b35dc4e982f413a0b8c47336'
-        expect(Equestreum.duck_attained hash, difficulty: 8).to be true
-      end
-
-      it 'does not verify a :llama block' do
-        hash = '1f999a04bcaba76ec015e6626b417b61874562c7b35dc4e982f413a0b8c47336'
-        expect(Equestreum.horse_attained hash).to be false
-      end
-    end
   end
 end

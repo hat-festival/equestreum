@@ -24,7 +24,7 @@ module Equestreum
         end
       end
 
-      context 'proofs-of-work are kosker' do
+      context 'proofs-of-work are kosher' do
         it 'verifies the proof-of-work of a block' do
           expect(@chain.proof_of_work_ok? 3).to be true
         end

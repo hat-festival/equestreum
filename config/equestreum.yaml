@@ -1,1 +1,6 @@
 chain_path: /usr/local/etc/equestreum.chain
+
+duck: 1f986
+horse: 1f40e
+
+default_difficulty: 3

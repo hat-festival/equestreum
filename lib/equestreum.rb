@@ -4,7 +4,9 @@ require 'yaml'
 
 require 'equestreum/version'
 require 'equestreum/config'
-require 'equestreum/block'
+require 'equestreum/blocks/block'
+require 'equestreum/blocks/duck_block'
+require 'equestreum/blocks/horse_block'
 require 'equestreum/chain'
 
 module Equestreum
@@ -12,7 +14,7 @@ module Equestreum
     if difficulty.class == Integer
       difficulty = '0' * difficulty
     end
-    
+
     string = '%s%s%s%s%s' % [
       nonce,
       Time.now.to_i,
@@ -32,27 +34,6 @@ module Equestreum
     end
 
     '%s%s' % [string, zeroes]
-  end
-
-  def self.horse_attained hash, difficulty: 5
-    self.difficulty_attained hash, type: :horse, difficulty: difficulty
-  end
-
-  def self.duck_attained hash, difficulty: 5
-    self.difficulty_attained hash, type: :duck, difficulty: difficulty
-  end
-
-  def self.difficulty_attained hash, type: :regular, difficulty: 5
-    types = {
-      horse: '1f40e',
-      duck: '1f986'
-    }
-    lead = '0' * difficulty
-    if types[type]
-      lead = self.lead_string types[type], difficulty: difficulty
-    end
-
-    hash.start_with? lead
   end
 
   class EquestreumException < Exception
