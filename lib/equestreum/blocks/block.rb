@@ -1,10 +1,12 @@
 module Equestreum
   class Block
-    attr_accessor :data, :prev, :difficulty
-    attr_reader :hash, :nonce, :time
+    attr_accessor :data, :previous_hash, :search_string, :search_width
+    attr_reader :hash, :nonce, :time, :mined
 
     def initialize
-      @difficulty = 4
+      @search_string = '0'
+      @search_width = 1
+      @mined = false
 
       yield self if block_given?
     end
@@ -13,17 +15,14 @@ module Equestreum
       @time = Time.now.to_i
       @nonce = 0
       loop do
-        @hash = Equestreum.hash @nonce, @difficulty, @prev, @data
-        if self.class.difficulty_attained hash, difficulty: @difficulty
+        @hash = Hasher.hash @nonce, @search_string, @previous_hash, @data
+        if Hasher.proven @hash, search_string: @search_string, search_width: @search_width
+          @mined = true
           break
         else
           @nonce += 1
         end
       end
-    end
-
-    def self.difficulty_attained hash, difficulty: 3
-      hash.start_with? '0' * difficulty
     end
   end
 end
