@@ -8,6 +8,7 @@ require 'equestreum/blocks/block'
 require 'equestreum/blocks/duck_block'
 require 'equestreum/blocks/horse_block'
 require 'equestreum/chain'
+require 'equestreum/hasher'
 
 module Equestreum
   def self.hash nonce, difficulty, prev, data
