@@ -4,8 +4,8 @@ module Equestreum
     attr_reader :hash, :nonce, :time, :mined
 
     def initialize
-      @search_string = '0'
-      @search_width = 1
+      @search_string = '00000'
+      @search_width = 8
       @mined = false
 
       yield self if block_given?
