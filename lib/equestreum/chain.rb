@@ -1,17 +1,18 @@
 module Equestreum
   class Chain < Array
     private :push, :append, :<<
-    attr_accessor :seed_data, :seed_difficulty
+    attr_accessor :seed_data, :seed_search_string, :seed_search_width
 
     def initialize
       @seed_data = 'genesis block'
-      @seed_difficulty = 3
+      @seed_search_string = '000'
 
       yield self if block_given?
 
       grow @seed_data,
-           difficulty: @seed_difficulty,
-           prev: '0000000000000000000000000000000000000000000000000000000000000000'
+           seed_search_string: @seed_search_string,
+           seed_search_width: @seed_search_width,
+           previous_hash: '0000000000000000000000000000000000000000000000000000000000000000'
     end
 
     def grow data, difficulty: nil, prev: nil
