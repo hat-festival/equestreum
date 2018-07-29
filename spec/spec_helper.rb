@@ -24,7 +24,7 @@ RSpec.configure do |config|
     fixture_yaml = YAML.load_file 'spec/fixtures/config.yaml'
     allow(YAML).to receive(:load_file).and_call_original
     allow(YAML).to receive(:load_file).
-      with("#{ENV['HOME']}/.equestreum/config.yaml").and_return(fixture_yaml)
+      with("config/equestreum.yaml").and_return(fixture_yaml)
   end
 end
 

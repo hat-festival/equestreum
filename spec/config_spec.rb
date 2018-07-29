@@ -4,7 +4,7 @@ module Equestreum
 
     it 'has a path' do
       @conf = Equestreum::Config.instance.config
-      expect(@conf['chain_path']).to eq '/home/horse/.equestreum/equestreum.chain'
+      expect(@conf['chain_path']).to eq 'tmp/home/horse/.equestreum/equestreum.chain'
     end
   end
 end

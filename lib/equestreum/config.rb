@@ -4,7 +4,7 @@ module Equestreum
 
     def initialize
       @config = fetch_yaml File.join(File.dirname(__FILE__), '..', '..', 'config/equestreum.yaml')
-      @config.merge! fetch_yaml "#{ENV['HOME']}/.equestreum/config.yaml"
+      @config.merge! fetch_yaml 'config/equestreum.yaml' if File.exists? 'config/equestreum.yaml'
     end
 
     def config

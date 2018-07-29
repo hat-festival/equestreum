@@ -14,6 +14,16 @@ module Equestreum
            prev: '0000000000000000000000000000000000000000000000000000000000000000'
     end
 
+    def self.init difficulty: 3
+      diff = Config.instance.config['difficulty'] ? Config.instance.config['difficulty'] : difficulty
+      unless File.exists? Config.instance.config['chain_path']
+        chain = Chain.new do |c|
+          c.seed_difficulty = diff
+        end
+        chain.save
+      end
+    end
+
     def grow data, difficulty: nil, prev: nil
       block = Block.new do |b|
         b.data = data
@@ -44,6 +54,14 @@ module Equestreum
       data.shift unless with_genesis
 
       data
+    end
+
+    def self.aggregate
+      h = Hash.new 0
+      Chain.revive[1..-1].each do |block|
+        h[block.data] += 1
+      end
+      h
     end
 
     def hash_ok? index
@@ -110,13 +128,18 @@ module Equestreum
     end
 
     def save
+      FileUtils.mkdir_p File.dirname Config.instance.config['chain_path']
       File.open Config.instance.config['chain_path'], 'w' do |f|
         f.write Marshal.dump self
       end
     end
 
     def self.revive
-      Marshal.load File.read Config.instance.config['chain_path']
+      begin
+        Marshal.load File.read Config.instance.config['chain_path']
+      rescue Errno::ENOENT
+        raise EquestreumException.new "no chain found at #{Config.instance.config['chain_path']}"
+      end
     end
   end
 end
