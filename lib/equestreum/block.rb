@@ -21,5 +21,19 @@ module Equestreum
         end
       end
     end
+
+    def to_h
+      h = {}
+      [
+        :data,
+        :time,
+        :nonce,
+        :difficulty,
+        :prev
+      ].each do |key|
+        h[key] = self.send(key)
+      end
+      h
+    end
   end
 end

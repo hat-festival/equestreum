@@ -36,6 +36,27 @@ module Equestreum
         expect(block.data).to eq 'equestreum'
         expect(block.time).to eq 140486400
       end
+
+      it 'presents as a hash' do
+        Timecop.freeze EPOCH do
+          @block = Block.new do |b|
+            b.data = 'equestreum'
+            b.prev = '00005a04bcaba76ec015e6626b417b61874562c7b35dc4e982f413a0b8c47336'
+            b.difficulty = 2
+          end
+          @block.mine
+        end
+
+        expect(@block.to_h).to eq (
+          {
+            data: 'equestreum',
+            time: 140486400,
+            nonce: 43,
+            difficulty: 2,
+            prev: '00005a04bcaba76ec015e6626b417b61874562c7b35dc4e982f413a0b8c47336'
+          }
+        )
+      end
     end
   end
 end
