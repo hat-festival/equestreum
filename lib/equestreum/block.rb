@@ -27,9 +27,10 @@ module Equestreum
       [
         :data,
         :time,
+        :hash,
+        :prev,
         :nonce,
-        :difficulty,
-        :prev
+        :difficulty
       ].each do |key|
         h[key] = self.send(key)
       end

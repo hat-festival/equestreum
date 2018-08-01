@@ -51,9 +51,10 @@ module Equestreum
           {
             data: 'equestreum',
             time: 140486400,
+            hash: '00a0874a902c2a2a0ef8ed96e4aacb6431df38a3f999b664809980e76b788021',
+            prev: '00005a04bcaba76ec015e6626b417b61874562c7b35dc4e982f413a0b8c47336',
             nonce: 43,
-            difficulty: 2,
-            prev: '00005a04bcaba76ec015e6626b417b61874562c7b35dc4e982f413a0b8c47336'
+            difficulty: 2
           }
         )
       end

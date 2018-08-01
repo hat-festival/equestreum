@@ -3,7 +3,7 @@ module Equestreum
     include Singleton
 
     def initialize
-      @config = fetch_yaml File.join(File.dirname(__FILE__), '..', '..', 'config/equestreum.yaml')
+      @config = fetch_yaml File.join(File.dirname(__FILE__), '..', '..', 'config/equestreum.yml')
       @config.merge! fetch_yaml "#{ENV['HOME']}/.equestreum/config.yaml"
     end
 

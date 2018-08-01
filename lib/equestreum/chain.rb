@@ -1,34 +1,41 @@
 module Equestreum
   class Chain < Array
     private :push, :append, :<<
-    attr_accessor :seed_data, :seed_difficulty
+    attr_accessor :genesis_data, :difficulty
 
     def initialize
-      @seed_data = 'genesis block'
-      @seed_difficulty = 3
+      @genesis_data = 'genesis block'
+      @difficulty = 3
 
       yield self if block_given?
 
-      grow @seed_data,
-           difficulty: @seed_difficulty,
-           prev: '0000000000000000000000000000000000000000000000000000000000000000'
+      grow @genesis_data,
+        prev: '0000000000000000000000000000000000000000000000000000000000000000'
+    end
+
+    def self.difficulty=diff
+      c = self.revive
+      c.difficulty = diff
+      c.save
     end
 
     def self.init difficulty: 3
       diff = Config.instance.config['difficulty'] ? Config.instance.config['difficulty'] : difficulty
       unless File.exists? Config.instance.config['chain_path']
         chain = Chain.new do |c|
-          c.seed_difficulty = diff
+          c.difficulty = diff
         end
         chain.save
       end
     end
 
     def grow data, difficulty: nil, prev: nil
+      diff = difficulty ? difficulty : @difficulty
+      @difficulty = difficulty if difficulty
       block = Block.new do |b|
         b.data = data
         b.prev = prev ? prev : self.last.hash
-        b.difficulty = difficulty ? difficulty : self.last.difficulty
+        b.difficulty = diff
       end
 
       block.mine

@@ -29,5 +29,29 @@ module Equestreum
         end
       end
     end
+
+    context 'change difficulty' do
+      before do
+        @chain = test_chain 1
+      end
+
+      it 'has correct defaults' do
+        expect(@chain.difficulty).to eq 3
+        expect(@chain.first.hash).to eq '0009b42551ddcf2d9a87efd867f9c7c0602894868e0d24a917942870454b6dc5'
+      end
+
+      specify 'we can change the difficulty' do
+        @chain.difficulty = 2
+        expect(@chain.difficulty).to eq 2
+        @chain.grow 'something'
+        expect(@chain.last.difficulty).to eq 2
+      end
+
+      specify 'we can change the difficulty of a sleeping chain' do
+        @chain.save
+        Chain.difficulty = 4
+        expect(Chain.revive.difficulty).to eq 4
+      end
+    end
   end
 end
