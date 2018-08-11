@@ -50,6 +50,16 @@ Starting with [this excellent tutorial](https://yukimotopress.github.io/programm
     => nil
     irb(main):021:0>
 
+## What it doesn't have
+
+### A distribution mechanism
+
+Equestreum runs on a single node, it has nothing in it for being shared around or any kind of consensus bullshit
+
+### Fucking coins
+
+But we could probably raise some money with an ICO anyway
+
 ## Should I use it?
 
 Fuck no
