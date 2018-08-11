@@ -13,7 +13,7 @@ module Equestreum
       @time = Time.now.to_i
       @nonce = 0
       loop do
-        @hash = Equestreum.hash @nonce, @difficulty, @prev, @data
+        @hash = Equestreum.hash @nonce, @time, @difficulty, @prev, @data
         if Equestreum.difficulty_attained hash, @difficulty
           break
         else

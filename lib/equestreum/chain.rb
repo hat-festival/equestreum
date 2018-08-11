@@ -1,22 +1,30 @@
 module Equestreum
   class Chain < Array
     private :push, :append, :<<
-    attr_accessor :genesis_data, :difficulty
+    attr_accessor :genesis_data, :difficulty, :path
 
     def initialize
       @genesis_data = 'genesis block'
       @difficulty = 3
-
+      @path = Config.instance.config['chain_path']
       yield self if block_given?
 
       grow @genesis_data,
         prev: '0000000000000000000000000000000000000000000000000000000000000000'
     end
 
-    def self.difficulty=diff
+    def path= path
+      Config.instance.config['chain_path'] = path
+    end
+
+    def self.difficulty= diff
       c = self.revive
       c.difficulty = diff
       c.save
+    end
+
+    def self.difficulty
+      self.revive.difficulty
     end
 
     def self.init difficulty: 3
@@ -29,22 +37,20 @@ module Equestreum
       end
     end
 
-    def grow data, difficulty: nil, prev: nil
-      diff = difficulty ? difficulty : @difficulty
-      @difficulty = difficulty if difficulty
+    def grow data, prev: nil
       block = Block.new do |b|
         b.data = data
         b.prev = prev ? prev : self.last.hash
-        b.difficulty = diff
+        b.difficulty = @difficulty
       end
 
       block.mine
       push block
     end
 
-    def self.grow data, difficulty: nil
+    def self.grow data
       chain = self.revive
-      chain.grow data, difficulty: difficulty
+      chain.grow data
       chain.save
 
       chain
@@ -85,7 +91,9 @@ module Equestreum
 
     def hashes_ok?
       self.length.times do |index|
-        raise EquestreumException.new "Block at #{index} tampered with" unless hash_ok? index
+        unless hash_ok? index
+          raise EquestreumException.new "Block at #{index} tampered with"
+        end
       end
       true
     end
@@ -120,7 +128,7 @@ module Equestreum
       return true if index == 0
       block = self[index]
       previous = self[index - 1]
-      block.time > previous.time
+      block.time >= previous.time
     end
 
     def blocks_get_newer?

@@ -53,5 +53,18 @@ module Equestreum
         expect(Chain.revive.difficulty).to eq 4
       end
     end
+
+    context 'set chain path' do
+      it 'takes a path for the chain' do
+        chain = Equestreum::Chain.new do |c|
+          c.path = 'tmp/some.chain'
+        end
+
+        expect(chain.verified?).to be true
+        chain.save
+        expect(File).to exist 'tmp/some.chain'
+        expect(Chain.revive.first.data).to eq 'genesis block'
+      end
+    end
   end
 end

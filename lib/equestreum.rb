@@ -8,10 +8,10 @@ require 'equestreum/block'
 require 'equestreum/chain'
 
 module Equestreum
-  def self.hash nonce, difficulty, prev, data
+  def self.hash nonce, time, difficulty, prev, data
     string = '%s%s%s%s%s' % [
       nonce,
-      Time.now.to_i,
+      time,
       '0' * difficulty,
       prev,
       data
