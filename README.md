@@ -50,7 +50,7 @@ Starting with [this excellent tutorial](https://yukimotopress.github.io/programm
     => nil
     irb(main):021:0>
 
-## What it doesn't have
+## What doesn't it have?
 
 ### A distribution mechanism
 
